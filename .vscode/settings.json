@@ -2,9 +2,13 @@
 {
   "python.linting.pylintEnabled": false,
   "python.linting.flake8Enabled": true,
-  "python.venvPath": "./venv",
-  "python.pythonPath": "${workspaceFolder}/venv/bin/python",
+  "python.venvPath": "${workspaceFolder}/env",
+  "python.pythonPath": "${workspaceFolder}/env/bin/python",
   "python.formatting.provider": "black",
   "editor.formatOnSave": true,
+<<<<<<< HEAD
   "restructuredtext.confPath": "${workspaceFolder}/venv/lib/python3.7/site-packages/pbr/tests/testpackage/doc/source",
+=======
+  "python.linting.enabled": true,
+>>>>>>> 415389d64f38ab19e776b94514d5c9f6eae1fdcc
 }

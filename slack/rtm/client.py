@@ -1,6 +1,10 @@
 """A Python module for iteracting with Slack's RTM API."""
 
 # Standard Imports
+<<<<<<< HEAD
+=======
+import os
+>>>>>>> 415389d64f38ab19e776b94514d5c9f6eae1fdcc
 import logging
 import random
 import json
@@ -43,6 +47,12 @@ class RTMClient(object):
         proxies (dict): If you need to use a proxy, you can pass a dict
             of proxy configs. e.g. {'https': "https://user:pass@127.0.0.1:8080"}
             Default is None.
+<<<<<<< HEAD
+=======
+        loop (AbstractEventLoop): An event loop provided by asyncio.
+            If None is specified we attempt to use the current loop
+            with `get_event_loop`. Default is None.
+>>>>>>> 415389d64f38ab19e776b94514d5c9f6eae1fdcc
 
     Methods:
         ping: Sends a ping message over the websocket to Slack.
@@ -98,6 +108,10 @@ class RTMClient(object):
         ping_timeout=30,
         ssl=None,
         proxies=None,
+<<<<<<< HEAD
+=======
+        loop=None,
+>>>>>>> 415389d64f38ab19e776b94514d5c9f6eae1fdcc
     ):
         self.token = token
         self.base_url = base_url
@@ -115,7 +129,11 @@ class RTMClient(object):
         self._last_message_id = 0
         self._connection_attempts = 0
         self._stopped = False
+<<<<<<< HEAD
         self._event_loop = None
+=======
+        self._event_loop = loop or asyncio.get_event_loop()
+>>>>>>> 415389d64f38ab19e776b94514d5c9f6eae1fdcc
 
     @staticmethod
     def run_on(event):
@@ -169,6 +187,7 @@ class RTMClient(object):
         Raises:
             SlackApiError: Unable to retreive RTM URL from Slack.
         """
+<<<<<<< HEAD
         self._event_loop = asyncio.get_event_loop()
         try:
             # These signals depend on the OS.
@@ -176,6 +195,14 @@ class RTMClient(object):
             signals = (signal.SIGHUP, signal.SIGTERM, signal.SIGINT)
             for s in signals:
                 self._event_loop.add_signal_handler(s, self.stop)
+=======
+        try:
+            # TODO: Add Windows support for graceful shutdowns.
+            if os.name != "nt":
+                signals = (signal.SIGHUP, signal.SIGTERM, signal.SIGINT)
+                for s in signals:
+                    self._event_loop.add_signal_handler(s, self.stop)
+>>>>>>> 415389d64f38ab19e776b94514d5c9f6eae1fdcc
             self._event_loop.run_until_complete(self._connect_and_read())
         finally:
             self._dispatch_event(event="close")

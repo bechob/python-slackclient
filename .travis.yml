@@ -1,15 +1,17 @@
 sudo: false
-dist: trusty
+dist: xenial
 language: python
 python:
   - "3.6"
   - "3.7"
 install:
-  - travis_retry pip install -r requirements.txt
-  - travis_retry pip install flake8
-  - travis_retry pip install -r test_requirements.txt
+  - python setup.py install
 script:
+<<<<<<< HEAD
   - flake8 slack
   - py.test --cov-report= --cov=slack tests
+=======
+  - python setup.py validate
+>>>>>>> 415389d64f38ab19e776b94514d5c9f6eae1fdcc
 after_success:
   - codecov -e $TRAVIS_PYTHON_VERSION
