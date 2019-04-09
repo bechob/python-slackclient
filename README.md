@@ -34,24 +34,23 @@ This Library requires Python 3.6 and above. If you require Python 2, please use 
 ```bash
 python --version
 ```
-We will be using [PipEnv][pipenv] for our examples but if you wish to use pip or similar, you can.
 
-> Note: You may need to use `python3` before your commands to ensure you 
+> Note: You may need to use `python3` before your commands to ensure you use the correct Python path. e.g. `python3 --version`
 
 
 ## Installation
 
-We recommend using [PyPI][pypi] to install Slack Developer Kit for Python as well as [PipEnv][pipenv]
+We recommend using [PyPI][pypi] to install Slack Developer Kit for Python.
 
 
 ```bash
-pipenv install --python 3.6 slackclient
+pip3 install slackclient
 ```
 
 If you require Python 2 support, you can use the following to install the previous version of our Developer Kit
 
 ```bash
-pipenv install --python 2.6 slackclient==1.3.1
+pip install slackclient==1.3.1
 ```
 
 
@@ -61,14 +60,52 @@ Link to the "Build an app in 10 minutes" guide
 
 _For more examples and usage, please refer to the [Slack API Documentation site][api-docs]._
 
-## Development setup
+## Basic Usage
 
-Describe how to install all development dependencies and how to run an automated test-suite of some kind. Potentially do this for multiple platforms.
+Slack provide a Web API that gives you the ability to build applications that interact with Slack in a variety of ways. This Development Kit is a module based wrapper that makes interaction with that API easier. We have a basic example here with some of the more common uses but a full list of the available methods are available [here][api-methods].
 
-```sh
-make install
-npm test
+The new version of this client also allows you to send the api call in two ways. One is to use the api method name with an underscore inplace of the fullstop to create the api call. In our [Sending a message to Slack](#Sending-a-message-to-Slack) example, you'll find both of these listed. All other example will just use one.
+
+```python
+     client.chat_postMessage(channel='#random',...
 ```
+
+The other is to specify the method as an argument inside the api call itself.
+
+```python
+    client.api_call(api_method='chat.postMessage', ... 
+```
+
+### Sending a message to Slack
+
+One of the most common use-cases is sending a message to Slack. If you want to send a message as your app, or as a user, this method can do both. In our examples, we specify the channel name, however it is recommended to use the `channel_id` where possible.
+
+```python
+    import os
+    import slack
+
+    client = slack.WebClient(token=os.environ['SLACK_API_TOKEN'])
+    # Example One
+    response = client.chat_postMessage(
+        channel='#random',
+        text="Hello world!")
+    assert response["ok"]
+    assert response["message"]["text"] == "Hello world!"
+
+
+    # Example Two
+    response_two = client.api_call(
+        api_method='chat.postMessage',
+        json={'channel': '#random','text': "Hello world!"}
+    )
+    assert response_two["ok"]
+    assert response_two["message"]["text"] == "Hello world!"
+
+```
+
+Here we also ensure that the response back from Slack is a successful one and that the message is the one we sent.
+
+
 
 <details>
   <summary><strong>Release History</strong> (click to expand)</summary>
