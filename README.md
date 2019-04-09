@@ -25,7 +25,8 @@ If you want to use our [Events API][events-docs], please check the [Slack Events
 ## Table of contents
 * [Requirements](#requirements)
 * [Installation](#installation)
-* [Build your first app](#begin)
+* [Build your first app](#build-an-app-in-10-minutes)
+* [Basic Usage](#basic-usage)
 
 ## Requirements
 
@@ -54,7 +55,7 @@ pip install slackclient==1.3.1
 ```
 
 
-## Begin
+## Build an app in 10 minutes
 
 Link to the "Build an app in 10 minutes" guide
 
